@@ -18,7 +18,6 @@ VividBites addresses these challenges by integrating:
 - **Vision Mode Filters** to adapt images and buttons for different types of color blindness.
 - **Large, Easy-to-Read Text** for better visibility.
 - **Simplified Navigation** to ensure a seamless user experience.
-- **Recipe Search & Filtering** by category (Vegetarian & Non-Vegetarian) for easy access.
 
 ---
 
