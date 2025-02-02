@@ -1,144 +1,107 @@
-:root {
-    --background: #222121;
-    --text-color: #fff;
-    --button-bg: rgb(245, 37, 9);
+// Fetch and display meals based on search
+function fetchMeals(event) {
+    event.preventDefault();
+    let inputValue = document.getElementById('inputName').value;
+// Get the search input value
+    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`)
+        .then(response => response.json())
+        .then(data => {
+            const items = document.getElementById("items");
+            items.innerHTML = "";
+
+            if (!data.meals) {
+                document.getElementById("msg").style.display = "block";
+            } else {
+                document.getElementById("msg").style.display = "none";
+                data.meals.forEach(meal => {
+                    let itemDiv = document.createElement("div");
+                    itemDiv.className = "recipe-card";
+                    itemDiv.innerHTML = `
+                        <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="filtered-image">
+                        <h2>${meal.strMeal}</h2>
+                        <button class="filtered-button" onclick="fetchDetails('${meal.idMeal}')">View Recipe</button>
+                    `;
+                    items.appendChild(itemDiv);
+                });
+            }
+            applyVisionFilter();
+        });
+}
+// Fetch and display detailed recipe information
+function fetchDetails(id) {
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
+        .then(res => res.json())
+        .then(detail => {
+            let meal = detail.meals[0];
+            let recipeWindow = window.open("", "_blank");
+
+            recipeWindow.document.write(`
+                <html>
+                <head>
+                    <title>${meal.strMeal}</title>
+                    <link rel="stylesheet" href="styles.css">
+                </head>
+                <body>
+                    <h1>${meal.strMeal}</h1>
+                    <img src="${meal.strMealThumb}" alt="${meal.strMeal}" class="filtered-image">
+                    
+                    <div class="details-container">
+                        <h2>Ingredients</h2>
+                        <ul>
+                            ${[...Array(20)].map((_, i) => meal[`strIngredient${i+1}`] ? `<li>${meal[`strIngredient${i+1}`]}</li>` : '').join('')}
+                        </ul>
+                    </div>
+                    
+                    <div class="details-container">
+                        <h2>Instructions</h2>
+                        <p id="instructions">${meal.strInstructions}</p>
+                    </div>
+                    
+                    <div class="details-container">
+                        <h2>Recipe Video</h2>
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/${meal.strYoutube.split('=')[1]}" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    
+                    <div class="details-container">
+                        <h2>Text-to-Speech</h2>
+                        <button class="filtered-button" onclick="speakText()">Listen</button>
+                    </div>
+                    
+                    <script>
+                        function speakText() {
+                            let text = document.getElementById('instructions').innerText;
+                            if (text.trim() === "") {
+                                alert("No instructions available for this recipe.");
+                                return;
+                            }
+                            let speech = new SpeechSynthesisUtterance(text);
+                            speech.rate = 1;
+                            speech.pitch = 1;
+                            speech.volume = 1;
+                            window.speechSynthesis.speak(speech);
+                        }
+                        function applyVisionFilter() {
+                            let mode = "${document.getElementById("visionSelector") ? document.getElementById("visionSelector").value : 'normal'}";
+                            document.querySelectorAll(".filtered-image").forEach(img => img.className = \`filtered-image \${mode}\`);
+                            document.querySelectorAll(".filtered-button").forEach(btn => btn.className = \`filtered-button \${mode}\`);
+                        }
+                        applyVisionFilter();
+                    </script>
+                </body>
+                </html>
+            `);
+
+            recipeWindow.document.close();
+        });
 }
 
-body {
-    background: var(--background);
-    color: var(--text-color);
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    text-align: center;
+// Apply Vision Filter to All Images & Buttons
+function applyVisionFilter() {
+    let mode = document.getElementById("visionSelector").value;
+    document.querySelectorAll(".filtered-image").forEach(img => img.className = `filtered-image ${mode}`);
+    document.querySelectorAll(".filtered-button").forEach(btn => btn.className = `filtered-button ${mode}`);
 }
 
-/* Header */
-header {
-    background: #333;
-    padding: 10px 0;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-
-}
-
-.logo {
-    font-size: 50px;
-    font-weight: bold;
-    text-align: center;
-    flex: 1;
-}
-
-.nav-list {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-    padding: 0;
-}
-
-.nav-list li {
-    cursor: pointer;
-}
-
-/* Hero Section */
-.hero {
-    width: 100%;
-    height: 150px;
-    background: url(images/mmm.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;
-    text-align: center;
-    padding: 140px 0;
-    margin-bottom: 20px;
-}
-
-
-.search-box {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.search-box input {
-    padding: 10px;
-    width: 300px;
-    border: none;
-    border-radius: 5px;
-}
-
-.search-box button {
-    background: var(--button-bg);
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-/* Recipes Section */
-.recipes {
-    padding: 40px 20px;
-}
-
-.recipe-section {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    padding: 20px;
-}
-
-.recipe-card {
-    background: #333;
-    padding: 15px;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.recipe-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.recipe-card h2 {
-    font-size: 18px;
-    margin: 10px 0;
-}
-
-.recipe-card button {
-    padding: 8px 15px;
-    background: var(--button-bg);
-    color: white;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-
-
-
-.filtered-image, .filtered-button {
-    transition: filter 0.3s ease-in-out;
-}
-
-.protanopia {
-    filter: sepia(0.6) hue-rotate(330deg) saturate(0.8);
-}
-
-.deuteranopia {
-    filter: sepia(0.6) hue-rotate(300deg) saturate(0.8);
-}
-
-.tritanopia {
-    filter: sepia(0.6) hue-rotate(180deg) saturate(0.8);
-}
+document.getElementById("visionSelector").addEventListener("change", applyVisionFilter);
+cument.getElementById("visionSelector").addEventListener("change", applyVisionFilter);
 
