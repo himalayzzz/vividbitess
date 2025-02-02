@@ -1,7 +1,8 @@
+// Fetch and display meals based on search
 function fetchMeals(event) {
     event.preventDefault();
     let inputValue = document.getElementById('inputName').value;
-
+// Get the search input value
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${inputValue}`)
         .then(response => response.json())
         .then(data => {
@@ -23,10 +24,10 @@ function fetchMeals(event) {
                     items.appendChild(itemDiv);
                 });
             }
-            applyVisionFilter();  // Apply filter after images and buttons load
+            applyVisionFilter();
         });
 }
-
+// Fetch and display detailed recipe information
 function fetchDetails(id) {
     fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`)
         .then(res => res.json())
