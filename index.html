@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VividBites</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Vivid Bites</h1>
+        </div>
+    </header>
+
+    <section class="vision-mode">
+        <h1>Adjust Vision Mode</h1>
+        <select id="visionSelector" onchange="changeVisionMode()">
+            <option value="normal">Normal Vision</option>
+            <option value="protanopia">Protanopia</option>
+            <option value="deuteranopia">Deuteranopia</option>
+            <option value="tritanopia">Tritanopia</option>
+        </select>
+    </section>
+
+    <section class="hero">
+        <div class="hero-section">
+            <h1>Welcome to Vivid Bites</h1>
+            <p>Search Recipes</p>
+            <form class="search-box" onsubmit="fetchMeals(event)">
+                <input type="text" id="inputName" placeholder="Search Recipe">
+                <button type="submit" id="button">Search</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="recipes">
+        <h2>Featured Recipes</h2>
+        <div id="items" class="recipe-section"></div>
+        <p id="msg" style="display: none; color: red;">No recipes found!</p>
+    </section>
+ 
+
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
