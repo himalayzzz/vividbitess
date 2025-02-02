@@ -89,7 +89,7 @@ Millions of people worldwide experience color blindness, making it difficult for
 ### **Screenshots 📸:**
 
 -![Screenshot (13)](https://github.com/user-attachments/assets/99acf755-9b06-4e1a-b842-b0cfa6fe25e8)
-Front page which has contrast text and background with search bar and option. There is also an option to adjust vision mode.
+Front page which has high contrast text and background with search bar and option. There is also an option to "adjust vision" mode.
 
 ![Screenshot (14)](https://github.com/user-attachments/assets/7d668348-7f7f-4f79-aa6f-fedf31ac98c0)
 Upon clicking the adjust vision mode option, 4 choices appear where user can choose which mode they prefer to view the site in.
