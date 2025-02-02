@@ -8,7 +8,7 @@
 **SIBS**
 
 ## **Team Members:**
-- **Hima Baijuraj** (MITS)
+- **Hima Baijuraj** (MITS) -Team Leader
 - **Gloria Mary Siby** (MITS)
 
 ---
@@ -87,8 +87,36 @@ Millions of people worldwide experience color blindness, making it difficult for
 
 
 ### **Screenshots 📸:**
-(Add relevant screenshots of the project here)
 
----
+-![Screenshot (13)](https://github.com/user-attachments/assets/99acf755-9b06-4e1a-b842-b0cfa6fe25e8)
+Front page which has contrast text and background with search bar and option. There is also an option to adjust vision mode.
+
+![Screenshot (14)](https://github.com/user-attachments/assets/7d668348-7f7f-4f79-aa6f-fedf31ac98c0)
+Upon clicking the adjust vision mode option, 4 choices appear where user can choose which mode they prefer to view the site in.
+
+
+![Screenshot (15)](https://github.com/user-attachments/assets/de443cc2-cc07-446b-b086-c574a3b8072c)
+Upon entering the desired recipe and clicking the search button, the user can see all the available tasty recipes in the preferred filter mode. The recipes are followed by an attractive image display, the name of the recipe and a "view recipe" button. 
+The interface is designed in such a way that it is easy to navigate and read.
+
+
+--![Screenshot (16)](https://github.com/user-attachments/assets/8977265a-914a-4357-800e-fdae330d2660)
+Upon clicking the 'view recipe' button, the user is sent to another tab wherein the detailed ingredients as well as the instructions appear in a successive manner.
+
+
+![Screenshot (18)](https://github.com/user-attachments/assets/a1433dfb-d78d-414d-b98d-6e05a6b33c9c)
+This is the version witnessed by all of us (a reference for comparing the difference)
+
+
+![Screenshot (19)](https://github.com/user-attachments/assets/4d884a15-a698-4e89-94de-0814f0d2908f)
+This is how the website appears to a normal vision user( again, for comparison)
+
+![Screenshot 2025-02-02 100709](https://github.com/user-attachments/assets/ec30609d-85e2-4ef8-ae04-a9e7f3852b52)
+The recipe image appears along with the ingredients.
+
+
+![Screenshot 2025-02-02 100006](https://github.com/user-attachments/assets/4bd7d5ea-af29-483e-866c-aabdc64ffc8d)
+Which is then followed by detailed instruction, a youtube video curated especially to make the process fun and detailed and topped off with a "text-to-speech" feature which allows the user to listen to the instructions given above. It also includes features to "pause/ resume" in case you require some quiet thinking time to figure out the recipe!!!!
+
 
 ### **Made with ❤️ by Hima & Gloria**
