@@ -65,20 +65,45 @@ function fetchDetails(id) {
                     <div class="details-container">
                         <h2>Text-to-Speech</h2>
                         <button class="filtered-button" onclick="speakText()">Listen</button>
+                        <button class="filtered-button" id="pauseResumeButton" onclick="toggleSpeech()">Pause</button>
                     </div>
                     
                     <script>
+                        let currentSpeech = null;
+
                         function speakText() {
                             let text = document.getElementById('instructions').innerText;
                             if (text.trim() === "") {
                                 alert("No instructions available for this recipe.");
                                 return;
                             }
-                            let speech = new SpeechSynthesisUtterance(text);
-                            speech.rate = 1;
-                            speech.pitch = 1;
-                            speech.volume = 1;
-                            window.speechSynthesis.speak(speech);
+                            window.speechSynthesis.cancel();
+                            currentSpeech = new SpeechSynthesisUtterance(text);
+                            currentSpeech.rate = 1;
+                            currentSpeech.pitch = 1;
+                            currentSpeech.volume = 1;
+                            currentSpeech.onend = resetPauseResumeButton;
+                            currentSpeech.onerror = resetPauseResumeButton;
+                            document.getElementById('pauseResumeButton').textContent = 'Pause';
+                            window.speechSynthesis.speak(currentSpeech);
+                        }
+
+                        function toggleSpeech() {
+                            if (!currentSpeech) {
+                                return;
+                            }
+
+                            if (window.speechSynthesis.paused) {
+                                window.speechSynthesis.resume();
+                                document.getElementById('pauseResumeButton').textContent = 'Pause';
+                            } else {
+                                window.speechSynthesis.pause();
+                                document.getElementById('pauseResumeButton').textContent = 'Resume';
+                            }
+                        }
+
+                        function resetPauseResumeButton() {
+                            document.getElementById('pauseResumeButton').textContent = 'Pause';
                         }
                         function applyVisionFilter() {
                             let mode = "${document.getElementById("visionSelector") ? document.getElementById("visionSelector").value : 'normal'}";
@@ -103,5 +128,3 @@ function applyVisionFilter() {
 }
 
 document.getElementById("visionSelector").addEventListener("change", applyVisionFilter);
-cument.getElementById("visionSelector").addEventListener("change", applyVisionFilter);
-
